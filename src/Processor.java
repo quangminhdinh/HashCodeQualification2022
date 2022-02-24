@@ -27,7 +27,7 @@ public class Processor {
     }
 
     public static void main(String[] args) {
-        int idx = 1;
+        int idx = 0;
         Processor processor = new Processor(Processor.inputFiles[idx]);
         processor.optimizeSortGreedy();
         System.out.println();
@@ -43,24 +43,26 @@ public class Processor {
     public void optimize() {
         int date = 0;
         boolean assigned = true;
-        while ((projects.size() != 0 || onGoingProjects.size() != 0) && assigned) {
+        while ((projects.size() != 0 || onGoingProjects.size() != 0)) {
             System.out.println(date);
             assigned = false;
             for (int i = 0; i < projects.size(); i++) {
                 if (projects.get(i).tryAssignContributor(contributors)) {
-                    System.out.println("assigned");
+
                     onGoingProjects.add(projects.remove(i));
                     i--;
                     assigned = true;
                 }
             }
+            if (!assigned && onGoingProjects.size() == 0) return;
             for (int i = 0; i < onGoingProjects.size(); i++) {
                 Project project = onGoingProjects.get(i);
-                if (project.getPriority(date) <= 0) {
-                    onGoingProjects.remove(i);
-                    i--;
-                    continue;
-                }
+                System.out.println(project.duration);
+//                if (project.getPriority(date) <= 0) {
+//                    onGoingProjects.remove(i);
+//                    i--;
+//                    continue;
+//                }
                 if (project.duration > 0) project.duration--;
                 if (project.duration <= 0) {
                     project.complete(contributors);
