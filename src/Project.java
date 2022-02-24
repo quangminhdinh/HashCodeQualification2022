@@ -21,6 +21,7 @@ public class Project implements Comparable<Project> {
     int deadline;
     // required roles for the project
     HashMap<String, Integer> roles;
+    HashMap<String, Integer> roleOrder;
     // Available skills to be mentored
     Set<String> skills;
     List<Contributor> contributors;
@@ -32,7 +33,7 @@ public class Project implements Comparable<Project> {
     // dung dung nhe :D
     int remainingDuration;
 
-    public Project(String name, int duration, int score, int deadline, HashMap<String, Integer> roles) {
+    public Project(String name, int duration, int score, int deadline, HashMap<String, Integer> roles, HashMap<String, Integer> roleOrder) {
         this.name = name;
         this.duration = duration;
         this.score = score;
@@ -42,6 +43,7 @@ public class Project implements Comparable<Project> {
         this.priority = 0;
         this.contributors = new ArrayList<>();
         this.isReady = false;
+        this.roleOrder = roleOrder;
         updatePriority(0);
     }
 
@@ -99,7 +101,6 @@ public class Project implements Comparable<Project> {
         int contributorSkill = contributor.skills.getOrDefault(skill, 0);
         // have the skill at the required level or higher
         if (contributorSkill >= roles.get(skill)) {
-            // WARNING: might crash
             contributor.skillInUse = skill;
             // contributor.isMentored = false;
             return true;

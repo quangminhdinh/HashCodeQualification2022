@@ -27,7 +27,7 @@ public class Processor {
     }
 
     public static void main(String[] args) {
-        int idx = 1;
+        int idx = 2;
         Processor processor = new Processor(Processor.inputFiles[idx]);
         processor.optimizeSortGreedy();
         System.out.println();
@@ -44,7 +44,7 @@ public class Processor {
         int date = 0;
         boolean assigned = true;
         while ((projects.size() != 0 || onGoingProjects.size() != 0)) {
-            System.out.println(date);
+//            System.out.println(date);
             assigned = false;
             for (int i = 0; i < projects.size(); i++) {
                 if (projects.get(i).tryAssignContributor(contributors)) {
@@ -57,7 +57,7 @@ public class Processor {
             if (!assigned && onGoingProjects.size() == 0) return;
             for (int i = 0; i < onGoingProjects.size(); i++) {
                 Project project = onGoingProjects.get(i);
-                System.out.println(project.duration);
+//                System.out.println(project.duration);
 //                if (project.getPriority(date) <= 0) {
 //                    onGoingProjects.remove(i);
 //                    i--;
@@ -112,13 +112,15 @@ public class Processor {
             int B = Integer.parseInt(split[3]);
             int R = Integer.parseInt(split[4]);
             HashMap<String, Integer> roles = new HashMap<>();
+            HashMap<String, Integer> roleOrder = new HashMap<>();
 
             for (int j = 0; j < R; j++) {
                 split = input.readLine().split(" ");
                 roles.put(split[0], Integer.parseInt(split[1]));
+                roles.put(split[0], j);
             }
 
-            projects.add(new Project(name, D, S, B, roles));
+            projects.add(new Project(name, D, S, B, roles, roleOrder));
         }
     }
 
