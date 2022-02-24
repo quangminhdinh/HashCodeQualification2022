@@ -28,6 +28,7 @@ public class Project implements Comparable<Project> {
 
     ArrayList<String> pastContributors = new ArrayList<>();
 
+
     // dung dung nhe :D
     int remainingDuration;
 

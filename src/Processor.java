@@ -27,7 +27,7 @@ public class Processor {
     }
 
     public static void main(String[] args) {
-        int idx = 0;
+        int idx = 1;
         Processor processor = new Processor(Processor.inputFiles[idx]);
         processor.optimizeSortGreedy();
         System.out.println();
@@ -125,8 +125,8 @@ public class Processor {
     public void writeSubmission(String output) {
         try {
             FileWriter writer = new FileWriter("output/" + output + ".out.txt");
-
-            writer.write(completedProjects.size());
+int temp = completedProjects.size();
+            writer.write(String.valueOf(temp));
             writer.write("\n");
             for (int i = 0; i < completedProjects.size(); i++) {
                 Project currentProject = completedProjects.get(i);
@@ -136,7 +136,7 @@ public class Processor {
                     writer.write(currentContributor);
                     if (j != currentProject.pastContributors.size() - 1) {
                         writer.write(" ");
-                    }
+                    } else
                     writer.write("\n");
                 }
             }
