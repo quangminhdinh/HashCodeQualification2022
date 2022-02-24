@@ -21,7 +21,7 @@ public class Project implements Comparable<Project> {
     int deadline;
     // required roles for the project
     HashMap<String, Integer> roles;
-    HashMap<String, Integer> roleOrder;
+    ArrayList<String> roleOrder;
     // Available skills to be mentored
     Set<String> skills;
     List<Contributor> contributors;
@@ -33,7 +33,7 @@ public class Project implements Comparable<Project> {
     // dung dung nhe :D
     int remainingDuration;
 
-    public Project(String name, int duration, int score, int deadline, HashMap<String, Integer> roles, HashMap<String, Integer> roleOrder) {
+    public Project(String name, int duration, int score, int deadline, HashMap<String, Integer> roles, ArrayList<String> roleOrder) {
         this.name = name;
         this.duration = duration;
         this.score = score;

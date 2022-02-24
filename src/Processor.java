@@ -112,12 +112,12 @@ public class Processor {
             int B = Integer.parseInt(split[3]);
             int R = Integer.parseInt(split[4]);
             HashMap<String, Integer> roles = new HashMap<>();
-            HashMap<String, Integer> roleOrder = new HashMap<>();
+            ArrayList<String> roleOrder = new ArrayList<>();
 
             for (int j = 0; j < R; j++) {
                 split = input.readLine().split(" ");
                 roles.put(split[0], Integer.parseInt(split[1]));
-                roles.put(split[0], j);
+                roleOrder.add(split[0]);
             }
 
             projects.add(new Project(name, D, S, B, roles, roleOrder));
