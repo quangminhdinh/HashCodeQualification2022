@@ -70,6 +70,7 @@ public class Project implements Comparable<Project> {
                     assigned = true;
                     break;
                 }
+                contributor.skillInUse = null;
             }
             if (!assigned) {
                 reset(contributors);
@@ -100,6 +101,8 @@ public class Project implements Comparable<Project> {
     // skill and level of the required skill of the project
     public boolean shouldAssignContributor(Contributor contributor, String skill) {
         int contributorSkill = contributor.skills.getOrDefault(skill, 0);
+        contributor.skills.put(skill, contributorSkill);
+
         // have the skill at the required level or higher
         if (contributorSkill >= roles.get(skill)) {
             contributor.skillInUse = skill;
@@ -109,12 +112,10 @@ public class Project implements Comparable<Project> {
         // have the skill at exactly one level below the required level
         // only if another contributor on the same project has this skill at the required level or higher
         if (roles.get(skill) - contributorSkill == 1) {
-            for (Contributor peer: contributors) {
-                if (peer.skills.getOrDefault(skill, 0) >= roles.get(skill)) {
-                    contributor.skillInUse = skill;
-                    // contributor.isMentored = true;
-                    return true;
-                }
+            if (skills.contains(skill)) {
+                contributor.skillInUse = skill;
+                // contributor.isMentored = true;
+                return true;
             }
         }
 
@@ -123,7 +124,11 @@ public class Project implements Comparable<Project> {
 
     public void assignContributor(Contributor contributor) {
         contributors.add(contributor);
-        skills.addAll(contributor.skills.keySet());
+        for (String skill: contributor.skills.keySet()) {
+            if (roles.containsKey(skill) && roles.get(skill) <= contributor.skills.get(skill)) {
+                skills.add(skill);
+            }
+        }
     }
 
     public void complete(ArrayList<Contributor> contributors) {

@@ -27,7 +27,7 @@ public class Processor {
     }
 
     public static void main(String[] args) {
-        int idx = 0;
+        int idx = 1;
         Processor processor = new Processor(Processor.inputFiles[idx]);
         processor.optimizeSortGreedy();
         System.out.println();
