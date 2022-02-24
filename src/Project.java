@@ -60,7 +60,8 @@ public class Project implements Comparable<Project> {
     }
 
     public boolean tryAssignContributor(ArrayList<Contributor> contributors) {
-        for (String role : roles.keySet()) {
+        for (String role : roleOrder) {
+
             boolean assigned = false;
             for (int i = 0; i < contributors.size(); i++) {
                 Contributor contributor = contributors.get(i);
