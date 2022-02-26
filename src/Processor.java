@@ -27,7 +27,7 @@ public class Processor {
     }
 
     public static void main(String[] args) {
-        int idx = 1;
+        int idx = 4;
         Processor processor = new Processor(Processor.inputFiles[idx]);
         processor.optimizeSortGreedy();
         System.out.println();
@@ -44,7 +44,7 @@ public class Processor {
         int date = 0;
         boolean assigned = true;
         while ((projects.size() != 0 || onGoingProjects.size() != 0)) {
-//            System.out.println(date);
+            System.out.println(date);
             assigned = false;
             for (int i = 0; i < projects.size(); i++) {
                 if (projects.get(i).tryAssignContributor(contributors)) {
@@ -76,12 +76,12 @@ public class Processor {
     }
 
 
-    public void optimize2() {
-        for (Project p: projects) p.updatePrio2(contributors);
-        projects.sort(Comparator.comparingInt(a -> a.priority2));
-        projects.sort(Collections.reverseOrder());
-        optimize();
-    }
+//    public void optimize2() {
+//        for (Project p: projects) p.updatePrio2(contributors);
+//        projects.sort(Comparator.comparingInt(a -> a.priority2));
+//        projects.sort(Collections.reverseOrder());
+//        optimize();
+//    }
 
     public void readInput(String path) throws IOException {
         readInput(new BufferedReader(new FileReader("input/" + path + ".in.txt")));
@@ -111,16 +111,23 @@ public class Processor {
             int S = Integer.parseInt(split[2]);
             int B = Integer.parseInt(split[3]);
             int R = Integer.parseInt(split[4]);
-            HashMap<String, Integer> roles = new HashMap<>();
+            ArrayList<Skill> roles = new ArrayList<>();
             ArrayList<String> roleOrder = new ArrayList<>();
-
+boolean y = true;
             for (int j = 0; j < R; j++) {
                 split = input.readLine().split(" ");
-                roles.put(split[0], Integer.parseInt(split[1]));
+                if (Objects.equals(name, "CastOSXv6")) System.out.println(split[0]+", " + split[1]);
+                Skill sik = new Skill();
+                sik.name = split[0];
+                sik.level = Integer.parseInt(split[1]);
+                roles.add(sik);
                 roleOrder.add(split[0]);
+//                if (Objects.equals(name, "CastOSXv6") && y) System.out.println(bruh);
+                y = false;
             }
 
             projects.add(new Project(name, D, S, B, roles, roleOrder));
+//            if (Objects.equals(name, "CastOSXv6")) System.out.println("aaaa" + roleOrder.get(0) + roles.get(roleOrder.get(0)));
         }
     }
 
